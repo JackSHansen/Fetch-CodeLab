@@ -10,7 +10,6 @@ fetch(myDataFileUrl)
     return response.json();
   })
   .then(data => {
-    // Antag f.eks. at JSON har en key som hedder "story" eller lign.
     myStoryElement.textContent = data.story;
   })
   .catch(error => {
