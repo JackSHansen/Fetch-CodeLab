@@ -1,9 +1,11 @@
-/* Opgave 1 */
+/* opgave 1 */
 const section = document.getElementById("sectionOne");
-
-const storyContainer = document.createElement("div");
-storyContainer.id = "theStory";
-section.appendChild(storyContainer);
+const storyContainer1 = document.getElementById("theStory1") || (() => {
+    const container = document.createElement("div");
+    container.id = "theStory1";
+    section.appendChild(container);
+    return container;
+})();
 
 fetch('https://api.example.com/felix-da')
   .then(response => {
@@ -13,28 +15,26 @@ fetch('https://api.example.com/felix-da')
   .then(data => {
       const text = document.createElement("p");
       text.innerText = data.story;
-      storyContainer.appendChild(text);
+      storyContainer1.appendChild(text);
 
       const img = document.createElement("img");
       img.src = "opgavefiler/img/" + data.img;
       img.alt = "Felix katten";
-      storyContainer.appendChild(img);
+      storyContainer1.appendChild(img);
   })
   .catch(error => console.error('Noget gik galt:', error));
 
-
-
-/* Opgave 2 */
-const storyContainer = document.getElementById("theStory") || (() => {
+/* opgave 2 */
+const storyContainer2 = document.getElementById("theStory2") || (() => {
     const container = document.createElement("div");
-    container.id = "theStory";
+    container.id = "theStory2";
     section.appendChild(container);
     return container;
 })();
 
 const languageSelect = document.createElement("select");
 languageSelect.id = "languageSelect";
-section.insertBefore(languageSelect, storyContainer);
+section.insertBefore(languageSelect, storyContainer2);
 
 const languages = ["da", "en"];
 languages.forEach(lang => {
@@ -44,46 +44,43 @@ languages.forEach(lang => {
     languageSelect.appendChild(option);
 });
 
-let storyData;
+let storyData2;
 
-fetch('https://api.example.com/felix')
+fetch('https://api.example.com/felix') 
   .then(response => {
       if (!response.ok) throw new Error('Netværksfejl');
       return response.json();
   })
   .then(data => {
-      storyData = data;
-      updateStory("da");
+      storyData2 = data;
+      updateStory2("da");
   })
   .catch(error => console.error('Noget gik galt:', error));
 
 languageSelect.addEventListener("change", (e) => {
-    updateStory(e.target.value);
+    updateStory2(e.target.value);
 });
 
-function updateStory(lang) {
-    storyContainer.innerHTML = "";
+function updateStory2(lang) {
+    storyContainer2.innerHTML = "";
 
     const text = document.createElement("p");
-    text.innerText = storyData[lang].story;
-    storyContainer.appendChild(text);
+    text.innerText = storyData2[lang].story;
+    storyContainer2.appendChild(text);
 
     const img = document.createElement("img");
-    img.src = "opgavefiler/img/" + storyData[lang].img;
+    img.src = "opgavefiler/img/" + storyData2[lang].img;
     img.alt = "Felix katten";
-    storyContainer.appendChild(img);
+    storyContainer2.appendChild(img);
 }
 
-
-
-/* Opgave 3*/
-let userList = document.getElementById("userList");
-if (!userList) {
-    userList = document.createElement("div");
-    userList.id = "userList";
-    const section = document.getElementById("sectionOne");
-    section.appendChild(userList);
-}
+/*opgave 3 */
+const userList = document.getElementById("userList") || (() => {
+    const container = document.createElement("div");
+    container.id = "userList";
+    section.appendChild(container);
+    return container;
+})();
 
 fetch("https://jsonplaceholder.typicode.com/users")
   .then(response => {
@@ -93,30 +90,29 @@ fetch("https://jsonplaceholder.typicode.com/users")
   .then(users => {
       users.forEach(myUser => {
           const userDiv = document.createElement("div");
-          
+
           const name = document.createElement("h2");
           name.innerText = myUser.name;
           userDiv.appendChild(name);
-          
+
           const address = document.createElement("p");
           address.innerHTML = `Adresse: ${myUser.address.street}  ${myUser.address.suite}<br>
                                Post nummer: ${myUser.address.zipcode}<br>
                                By: ${myUser.address.city}`;
           userDiv.appendChild(address);
-          
+
           userList.appendChild(userDiv);
       });
   })
   .catch(error => console.error("Noget gik galt:", error));
 
-/* Opgave 4*/
-let dogContainer = document.getElementById("dogContainer");
-if (!dogContainer) {
-    dogContainer = document.createElement("div");
-    dogContainer.id = "dogContainer";
-    const section = document.getElementById("sectionOne");
-    section.appendChild(dogContainer);
-}
+/* opgave 4*/
+const dogContainer = document.getElementById("dogContainer") || (() => {
+    const container = document.createElement("div");
+    container.id = "dogContainer";
+    section.appendChild(container);
+    return container;
+})();
 
 fetch("https://dog.ceo/api/breeds/image/random")
   .then(response => {
