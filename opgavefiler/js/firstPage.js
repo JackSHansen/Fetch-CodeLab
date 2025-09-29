@@ -34,7 +34,6 @@ fetch(myDataFileUrl)
 
 
 /* Opgave 3*/
-/* Opgave 3 */
 const userURI = "https://jsonplaceholder.typicode.com/users";
 const myUserlistElement = document.getElementById("userList");
 
